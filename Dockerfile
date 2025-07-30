@@ -18,6 +18,7 @@ COPY .yarn/patches ./.yarn/patches
 # Copy workspace package.json files
 COPY packages/twenty-emails/package.json ./packages/twenty-emails/
 COPY packages/twenty-server/package.json ./packages/twenty-server/
+COPY packages/twenty-server/patches ./packages/twenty-server/patches
 COPY packages/twenty-ui/package.json ./packages/twenty-ui/
 COPY packages/twenty-shared/package.json ./packages/twenty-shared/
 COPY packages/twenty-front/package.json ./packages/twenty-front/
