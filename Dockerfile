@@ -23,15 +23,15 @@ COPY packages/twenty-ui/package.json ./packages/twenty-ui/
 COPY packages/twenty-shared/package.json ./packages/twenty-shared/
 COPY packages/twenty-front/package.json ./packages/twenty-front/
 
-# Install dependencies (without --check-cache to avoid Docker issues)
-RUN yarn install --frozen-lockfile
+# Install dependencies (using immutable flag for better Docker compatibility)
+RUN yarn install --immutable
 
 # Copy source code
 COPY . .
 
-# Build the application
-RUN yarn nx run twenty-server:build
-RUN yarn nx build twenty-front
+# Build the application with error handling
+RUN yarn nx run twenty-server:build || (echo "Server build failed" && exit 1)
+RUN yarn nx build twenty-front || (echo "Frontend build failed" && exit 1)
 
 # Create production build
 RUN yarn workspaces focus --production twenty-emails twenty-shared twenty-server
