@@ -75,7 +75,9 @@ const bootstrap = async () => {
   // Inject the server url in the frontend page
   generateFrontConfig();
 
-  await app.listen(twentyConfigService.get('NODE_PORT'));
+  // Use PORT environment variable (Railway) or fall back to NODE_PORT (local development)
+  const port = process.env.PORT || twentyConfigService.get('NODE_PORT');
+  await app.listen(port);
 };
 
 bootstrap();
