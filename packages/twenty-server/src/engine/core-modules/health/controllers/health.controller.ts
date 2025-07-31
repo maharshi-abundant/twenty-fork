@@ -40,13 +40,6 @@ export class HealthController {
       status: 'ok',
       timestamp: new Date().toISOString(),
       message: 'Application is running',
-      version: process.env.npm_package_version || 'unknown',
-      environment: process.env.NODE_ENV || 'unknown',
-      uptime: process.uptime(),
-      memory: {
-        used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + 'MB',
-        total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + 'MB',
-      },
     };
   }
 
