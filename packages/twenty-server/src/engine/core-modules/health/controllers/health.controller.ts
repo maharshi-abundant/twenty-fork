@@ -33,6 +33,16 @@ export class HealthController {
     return this.health.check([]);
   }
 
+  @Get('startup')
+  @UseGuards(PublicEndpointGuard)
+  startupCheck() {
+    return {
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      message: 'Application is running',
+    };
+  }
+
   @Get(':indicatorId')
   @UseGuards(PublicEndpointGuard)
   @HealthCheck()

@@ -3,8 +3,9 @@ builder = "dockerfile"
 
 [deploy]
 startCommand = "yarn start"
-healthcheckPath = "/"
+healthcheckPath = "/healthz/startup"
 healthcheckTimeout = 900
+startupTimeout = 300
 
 [env]
 NODE_VERSION = "22.12.0" 
