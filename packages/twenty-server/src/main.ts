@@ -22,6 +22,13 @@ import { settings } from './engine/constants/settings';
 import { generateFrontConfig } from './utils/generate-front-config';
 
 const bootstrap = async () => {
+  console.log('🚀 Starting Twenty application...');
+  console.log('📊 Environment variables:');
+  console.log('  - PORT:', process.env.PORT);
+  console.log('  - NODE_PORT:', process.env.NODE_PORT);
+  console.log('  - DATABASE_URL:', process.env.DATABASE_URL ? 'SET' : 'NOT SET');
+  console.log('  - REDIS_URL:', process.env.REDIS_URL ? 'SET' : 'NOT SET');
+  
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
     bufferLogs: process.env.LOGGER_IS_BUFFER_ENABLED === 'true',
@@ -77,7 +84,14 @@ const bootstrap = async () => {
 
   // Use PORT environment variable (Railway) or fall back to NODE_PORT (local development)
   const port = process.env.PORT || twentyConfigService.get('NODE_PORT');
+  console.log(`🌐 Starting server on port ${port}...`);
+  
   await app.listen(port);
+  console.log(`✅ Server started successfully on port ${port}`);
+  console.log(`🏥 Healthcheck available at: http://localhost:${port}/healthz`);
 };
 
-bootstrap();
+bootstrap().catch((error) => {
+  console.error('❌ Failed to start application:', error);
+  process.exit(1);
+});
