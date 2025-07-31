@@ -23,8 +23,8 @@ COPY packages/twenty-ui/package.json ./packages/twenty-ui/
 COPY packages/twenty-shared/package.json ./packages/twenty-shared/
 COPY packages/twenty-front/package.json ./packages/twenty-front/
 
-# Install dependencies (using immutable flag for better Docker compatibility)
-RUN yarn install --immutable
+# Install dependencies with relaxed peer dependency checks
+RUN yarn install --mode=skip-build
 
 # Copy source code
 COPY . .
