@@ -23,8 +23,8 @@ COPY packages/twenty-ui/package.json ./packages/twenty-ui/
 COPY packages/twenty-shared/package.json ./packages/twenty-shared/
 COPY packages/twenty-front/package.json ./packages/twenty-front/
 
-# Install dependencies with relaxed peer dependency checks
-RUN yarn install --frozen-lockfile --network-timeout 600000
+# Install dependencies with simple yarn install
+RUN yarn install
 
 # Copy source code
 COPY . .
